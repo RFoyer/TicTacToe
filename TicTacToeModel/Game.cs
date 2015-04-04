@@ -28,19 +28,23 @@ namespace TicTacToeModel
 
         private bool IsValidPlay()
         {
-            return squaresPlayed[currentSquare] == "" && currentScoreSituation() == ScoreSituation.Continue;
+            return squaresPlayed[currentSquare] == "" && currentScoreSituation == ScoreSituation.Continue;
         }
 
         private bool NeedAimove()
         {
-            return IsOnePlayerGame && currentScoreSituation() == ScoreSituation.Continue;
+            return isOnePlayerGame && currentScoreSituation == ScoreSituation.Continue;
         }
 
         public void playSquare()
         {
             squaresPlayed[currentSquare] = letterOfCurrentPlayerSide;
-            turnNumber++;
-            letterOfCurrentPlayerSide = switchPlayerSide(letterOfCurrentPlayerSide);
+            setCurrentScoreSituation();
+            if (currentScoreSituation == ScoreSituation.Continue)
+            {
+                letterOfCurrentPlayerSide = switchPlayerSide(letterOfCurrentPlayerSide);
+                turnNumber++;
+            }
         }
 
         public void getFirstPlayer()

@@ -2,7 +2,25 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="MainWindow" Height="350" Width="525">
+
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="266*"/>
+            <ColumnDefinition Width="251*"/>
+        </Grid.ColumnDefinitions>
+        <Button Content="{Binding btn0, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Command="{Binding BtnClickCommand}" CommandParameter="0" IsEnabled="{Binding isContinue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="50,50,0,0" VerticalAlignment="Top" Width="50" Height="50"/>
+        <Button Content="{Binding btn1, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Command="{Binding BtnClickCommand}" CommandParameter="1" IsEnabled="{Binding isContinue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="125,50,0,0" VerticalAlignment="Top" Width="50" Height="50"/>
+        <Button Content="{Binding btn2, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Command="{Binding BtnClickCommand}" CommandParameter="2" IsEnabled="{Binding isContinue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="200,50,0,0" VerticalAlignment="Top" Width="50" Height="50"/>
+        <Button Content="{Binding btn3, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Command="{Binding BtnClickCommand}" CommandParameter="3" IsEnabled="{Binding isContinue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="50,129,0,0" VerticalAlignment="Top" Width="50" Height="50"/>
+        <Button Content="{Binding btn4, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Command="{Binding BtnClickCommand}" CommandParameter="4" IsEnabled="{Binding isContinue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="125,129,0,0" VerticalAlignment="Top" Width="50" Height="50"/>
+        <Button Content="{Binding btn5, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Command="{Binding BtnClickCommand}" CommandParameter="5" IsEnabled="{Binding isContinue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="200,129,0,0" VerticalAlignment="Top" Width="50" Height="50"/>
+        <Button Content="{Binding btn6, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Command="{Binding BtnClickCommand}" CommandParameter="6" IsEnabled="{Binding isContinue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="50,207,0,0" VerticalAlignment="Top" Width="50" Height="50"/>
+        <Button Content="{Binding btn7, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Command="{Binding BtnClickCommand}" CommandParameter="7" IsEnabled="{Binding isContinue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="125,207,0,0" VerticalAlignment="Top" Width="50" Height="50"/>
+        <Button Content="{Binding btn8, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Command="{Binding BtnClickCommand}" CommandParameter="8" IsEnabled="{Binding isContinue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="200,207,0,0" VerticalAlignment="Top" Width="50" Height="50"/>
+        <Button Content="New Game" Command="{Binding NewGameCommand}" Grid.Column="1" HorizontalAlignment="Left" Margin="89,50,0,0" VerticalAlignment="Top" Width="75"/>
+        <Label Content="{Binding lblContent, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" HorizontalAlignment="Left" Margin="89,138,0,0" VerticalAlignment="Top" Width="75" Height="23"/>
+        <Menu HorizontalAlignment="Left" Height="24" VerticalAlignment="Top" Width="517" Grid.ColumnSpan="2">
+            
+        </Menu>
     </Grid>
 </Window>

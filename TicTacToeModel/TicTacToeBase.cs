@@ -7,14 +7,19 @@ using System.Threading.Tasks;
 namespace TicTacToeModel
 {
     public enum ScoreSituation { Win, Draw, Continue };
-    
+
     public abstract class TicTacToeBase
     {
         public int currentSquare { get; set; }
-        public int turnNumber { get; set; }
+        private int _turnNumber = 0;
+        public int turnNumber
+        {
+            get { return _turnNumber; }
+            set { _turnNumber = value; }
+        }
         public string letterOfCurrentPlayerSide { get; set; }
         public string difficultyLevel { get; set; }
-        public bool IsOnePlayerGame { get; set; }
+        public bool isOnePlayerGame { get; set; }
         public string firstPlayer { get; set; }
         private List<string> _squaresPlayed = new List<string>() { "", "", "", "", "", "", "", "", "" };
         public List<string> squaresPlayed
@@ -36,15 +41,13 @@ namespace TicTacToeModel
         {
             get { return _winningIndexSequences; }
         }
-        private ScoreSituation _currentScoreSituation;
-        
-        public ScoreSituation currentScoreSituation()
+        public ScoreSituation currentScoreSituation { get; set; }
+
+        public void setCurrentScoreSituation()
         {
-            _currentScoreSituation = ScoreSituation.Continue;
+            currentScoreSituation = ScoreSituation.Continue;
             checkForWin();
             checkForDraw();
-
-            return _currentScoreSituation;
         }
 
         private void checkForWin()
@@ -56,7 +59,7 @@ namespace TicTacToeModel
                     if (squaresPlayed[w[0]] + squaresPlayed[w[1]] + squaresPlayed[w[2]]
                         == letterOfCurrentPlayerSide + letterOfCurrentPlayerSide + letterOfCurrentPlayerSide)
                     {
-                        _currentScoreSituation = ScoreSituation.Win;
+                        currentScoreSituation = ScoreSituation.Win;
                     }
                 }
             }
@@ -64,9 +67,9 @@ namespace TicTacToeModel
 
         private void checkForDraw()
         {
-            if (turnNumber == 8)
+            if (turnNumber == 8 && currentScoreSituation == ScoreSituation.Continue)
             {
-                _currentScoreSituation = ScoreSituation.Draw;
+                currentScoreSituation = ScoreSituation.Draw;
             }
         }
 

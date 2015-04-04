@@ -17,7 +17,7 @@ namespace TicTacToeTests
             game.letterOfCurrentPlayerSide = "O";
             game.turnNumber = 5;
 
-            var actual = game.currentScoreSituation();
+            var actual = game.setCurrentScoreSituation();
 
             Assert.AreEqual(ScoreSituation.Win, actual);
 
@@ -32,7 +32,7 @@ namespace TicTacToeTests
             game.letterOfCurrentPlayerSide = "X";
             game.turnNumber = 5;
 
-            var actual = game.currentScoreSituation();
+            var actual = game.setCurrentScoreSituation();
 
             Assert.AreEqual(ScoreSituation.Win, actual);
 
@@ -47,7 +47,7 @@ namespace TicTacToeTests
             game.letterOfCurrentPlayerSide = "X";
             game.turnNumber = 8;
 
-            var actual = game.currentScoreSituation();
+            var actual = game.setCurrentScoreSituation();
 
             Assert.AreEqual(ScoreSituation.Draw, actual);
 

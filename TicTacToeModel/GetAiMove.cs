@@ -149,7 +149,7 @@ namespace TicTacToeModel
         public string switchPlayerSide(string playerSide)
         {
             var nextPlayerSide = "";
-            if (nextPlayerSide == "X")
+            if (playerSide == "X")
             {
                 nextPlayerSide = "O";
             }
