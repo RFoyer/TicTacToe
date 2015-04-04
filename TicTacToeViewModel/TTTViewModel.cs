@@ -11,6 +11,11 @@ namespace TicTacToeViewModel
 {
     public class TTTViewModel : INotifyPropertyChanged
     {
+        public TTTViewModel()
+        {
+            game.difficultyLevel = "unbeatable";
+        }
+
         private Game game = new Game();
 
         public string btn0
@@ -89,6 +94,21 @@ namespace TicTacToeViewModel
             }
         }
 
+        private bool _optionsEnabled = true;
+        public bool optionsEnabled
+        {
+            get { return _optionsEnabled; }
+            set
+            {
+                _optionsEnabled = value;
+                OnPropertyChanged("optionsEnabled");
+            }
+        }
+
+        public bool isOnePlayerGame { get; set; }
+
+        public bool isUnbeatableDifficulty { get; set; }
+
         private ICommand _BtnClickCommand;
         public ICommand BtnClickCommand
         {
@@ -114,8 +134,6 @@ namespace TicTacToeViewModel
         public void BtnClick_CommandExecute(object parameter)
         {
             game.currentSquare = Convert.ToInt32(parameter);
-            game.isOnePlayerGame = true;
-            game.letterOfCurrentPlayerSide = "X";
             game.squareSelectionAttempt();
             updateLblContent();
             updateContentOfAllSquares();
@@ -140,7 +158,23 @@ namespace TicTacToeViewModel
             game.setCurrentScoreSituation();
             isContinue = true;
             lblContent = "Your Move!";
+            optionsEnabled = false;
+            setOptions();
+            game.letterOfCurrentPlayerSide = "X";
             updateContentOfAllSquares();
+        }
+
+        private void setOptions()
+        {
+            game.isOnePlayerGame = isOnePlayerGame;
+            if (!isUnbeatableDifficulty)
+            {
+                game.difficultyLevel = "easy";
+            }
+            else
+            {
+                game.difficultyLevel = "unbeatable";
+            }
         }
 
         private void checkIfContinue()
@@ -148,6 +182,7 @@ namespace TicTacToeViewModel
             if (game.currentScoreSituation != ScoreSituation.Continue)
             {
                 isContinue = false;
+                optionsEnabled = true;
             }
         }
 
@@ -172,5 +207,7 @@ namespace TicTacToeViewModel
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
             }
         }
+
+
     }
 }

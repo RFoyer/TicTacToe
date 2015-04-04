@@ -1,7 +1,7 @@
 ﻿<Window x:Class="TicTacToeView.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="MainWindow" Height="350" Width="525">
+        Title="TicTacToe" Height="350" Width="525">
 
     <Grid>
         <Grid.ColumnDefinitions>
@@ -20,7 +20,8 @@
         <Button Content="New Game" Command="{Binding NewGameCommand}" Grid.Column="1" HorizontalAlignment="Left" Margin="89,50,0,0" VerticalAlignment="Top" Width="75"/>
         <Label Content="{Binding lblContent, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" HorizontalAlignment="Left" Margin="89,138,0,0" VerticalAlignment="Top" Width="75" Height="23"/>
         <Menu HorizontalAlignment="Left" Height="24" VerticalAlignment="Top" Width="517" Grid.ColumnSpan="2">
-            
+            <CheckBox Content="Play Computer" IsChecked="{Binding isOnePlayerGame, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding optionsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="114"/>
+            <CheckBox Content="Unbeatable" IsChecked="{Binding isUnbeatableDifficulty, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding optionsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
         </Menu>
     </Grid>
 </Window>
