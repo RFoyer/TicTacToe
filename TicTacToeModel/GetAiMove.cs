@@ -10,22 +10,22 @@ namespace TicTacToeModel
     {
 
         private int[] _fourCorners = { 0, 2, 6, 8 };
-        private List<Action> _mediumDifficultyAlgorithm = new List<Action>();
-        private List<Action> _unbeatableDifficultyAlgorithm = new List<Action>();
+        private List<Action> _mediumDifficultyAi = new List<Action>();
+        private List<Action> _unbeatableDifficultyAi = new List<Action>();
 
         public GetAiMove()
         {
-            _mediumDifficultyAlgorithm.Add(() => checkForWin());
-            _mediumDifficultyAlgorithm.Add(() => checkForBlock());
-            _mediumDifficultyAlgorithm.Add(() => checkForCenter());
-            _mediumDifficultyAlgorithm.Add(() => getRandomMove());
-            _unbeatableDifficultyAlgorithm.Add(() => checkForWin());
-            _unbeatableDifficultyAlgorithm.Add(() => checkForBlock());
-            _unbeatableDifficultyAlgorithm.Add(() => checkForWinningFork());
-            _unbeatableDifficultyAlgorithm.Add(() => checkForForkBlock());
-            _unbeatableDifficultyAlgorithm.Add(() => checkForCenter());
-            _unbeatableDifficultyAlgorithm.Add(() => checkForCorner());
-            _unbeatableDifficultyAlgorithm.Add(() => getRandomMove());
+            _mediumDifficultyAi.Add(() => checkForWin());
+            _mediumDifficultyAi.Add(() => checkForBlock());
+            _mediumDifficultyAi.Add(() => checkForCenter());
+            _mediumDifficultyAi.Add(() => getRandomMove());
+            _unbeatableDifficultyAi.Add(() => checkForWin());
+            _unbeatableDifficultyAi.Add(() => checkForBlock());
+            _unbeatableDifficultyAi.Add(() => checkForWinningFork());
+            _unbeatableDifficultyAi.Add(() => checkForForkBlock());
+            _unbeatableDifficultyAi.Add(() => checkForCenter());
+            _unbeatableDifficultyAi.Add(() => checkForCorner());
+            _unbeatableDifficultyAi.Add(() => getRandomMove());
             
         }
 
@@ -37,13 +37,13 @@ namespace TicTacToeModel
                     getRandomMove();
                     break;
                 case "medium":
-                    playAiMove(_mediumDifficultyAlgorithm);
+                    playAiMove(_mediumDifficultyAi);
                     break;
                 case "unbeatable":
-                    playAiMove(_unbeatableDifficultyAlgorithm);
+                    playAiMove(_unbeatableDifficultyAi);
                     break;
                 default:
-                    playAiMove(_unbeatableDifficultyAlgorithm);
+                    playAiMove(_unbeatableDifficultyAi);
                     break;
             }
         }

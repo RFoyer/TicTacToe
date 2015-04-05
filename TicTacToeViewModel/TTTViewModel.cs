@@ -11,11 +11,6 @@ namespace TicTacToeViewModel
 {
     public class TTTViewModel : INotifyPropertyChanged
     {
-        public TTTViewModel()
-        {
-            game.difficultyLevel = "unbeatable";
-        }
-
         private Game game = new Game();
 
         public string btn0
@@ -105,9 +100,23 @@ namespace TicTacToeViewModel
             }
         }
 
-        public bool isOnePlayerGame { get; set; }
+        public bool isOnePlayerGame
+        {
+            get { return TicTacToeBase.isOnePlayerGame; }
+            set { TicTacToeBase.isOnePlayerGame = value; }
+        }
 
-        public bool isUnbeatableDifficulty { get; set; }
+        public bool isUnbeatableDifficulty
+        {
+            get { return TicTacToeBase.difficultyLevel == "unbeatable"; }
+            set
+            {
+                if (value)
+                    TicTacToeBase.difficultyLevel = "unbeatable";
+                else
+                    TicTacToeBase.difficultyLevel = "easy";
+            }
+        }
 
         private ICommand _BtnClickCommand;
         public ICommand BtnClickCommand
@@ -159,23 +168,23 @@ namespace TicTacToeViewModel
             isContinue = true;
             lblContent = "Your Move!";
             optionsEnabled = false;
-            setOptions();
+            //setOptions();
             game.letterOfCurrentPlayerSide = "X";
             updateContentOfAllSquares();
         }
 
-        private void setOptions()
-        {
-            game.isOnePlayerGame = isOnePlayerGame;
-            if (!isUnbeatableDifficulty)
-            {
-                game.difficultyLevel = "easy";
-            }
-            else
-            {
-                game.difficultyLevel = "unbeatable";
-            }
-        }
+        //private void setOptions()
+        //{
+        //    game.isOnePlayerGame = isOnePlayerGame;
+        //    if (!isUnbeatableDifficulty)
+        //    {
+        //        game.difficultyLevel = "easy";
+        //    }
+        //    else
+        //    {
+        //        game.difficultyLevel = "unbeatable";
+        //    }
+        //}
 
         private void checkIfContinue()
         {

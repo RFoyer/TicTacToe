@@ -18,8 +18,8 @@ namespace TicTacToeModel
             set { _turnNumber = value; }
         }
         public string letterOfCurrentPlayerSide { get; set; }
-        public string difficultyLevel { get; set; }
-        public bool isOnePlayerGame { get; set; }
+        public static string difficultyLevel { get; set; }
+        public static bool isOnePlayerGame { get; set; }
         public string firstPlayer { get; set; }
         private List<string> _squaresPlayed = new List<string>() { "", "", "", "", "", "", "", "", "" };
         public List<string> squaresPlayed
