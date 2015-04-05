@@ -156,11 +156,11 @@ namespace TicTacToeViewModel
 
         private void updateLblContent()
         {
-            if (TicTacToeBase.currentScoreSituation == ScoreSituation.Win)
+            if (game.currentScoreSituation == ScoreSituation.Win)
             {
                 lblContent = string.Format("{0} Wins!", game.letterOfCurrentPlayerSide);
             }
-            if (TicTacToeBase.currentScoreSituation == ScoreSituation.Draw)
+            if (game.currentScoreSituation == ScoreSituation.Draw)
             {
                 lblContent = "Cat!";
             }
@@ -178,7 +178,7 @@ namespace TicTacToeViewModel
 
         private void checkIfContinue()
         {
-            if (TicTacToeBase.currentScoreSituation != ScoreSituation.Continue)
+            if (game.currentScoreSituation != ScoreSituation.Continue)
             {
                 isContinue = false;
                 optionsEnabled = true;

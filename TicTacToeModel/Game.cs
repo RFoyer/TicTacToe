@@ -11,6 +11,7 @@ namespace TicTacToeModel
         public Game()
         {
             setCurrentScoreSituation();
+            squaresPlayed = new List<string>() { "", "", "", "", "", "", "", "", "" };
         }
         
         public void squareSelectionAttempt()
