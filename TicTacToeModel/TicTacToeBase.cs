@@ -41,7 +41,7 @@ namespace TicTacToeModel
         {
             get { return _winningIndexSequences; }
         }
-        public ScoreSituation currentScoreSituation { get; set; }
+        public static ScoreSituation currentScoreSituation { get; set; }
 
         public void setCurrentScoreSituation()
         {

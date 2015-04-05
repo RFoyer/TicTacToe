@@ -11,6 +11,11 @@ namespace TicTacToeViewModel
 {
     public class TTTViewModel : INotifyPropertyChanged
     {
+        public TTTViewModel()
+        {
+            TicTacToeBase.difficultyLevel = "easy";
+        }
+        
         private Game game = new Game();
 
         public string btn0
@@ -151,11 +156,11 @@ namespace TicTacToeViewModel
 
         private void updateLblContent()
         {
-            if (game.currentScoreSituation == ScoreSituation.Win)
+            if (TicTacToeBase.currentScoreSituation == ScoreSituation.Win)
             {
                 lblContent = string.Format("{0} Wins!", game.letterOfCurrentPlayerSide);
             }
-            if (game.currentScoreSituation == ScoreSituation.Draw)
+            if (TicTacToeBase.currentScoreSituation == ScoreSituation.Draw)
             {
                 lblContent = "Cat!";
             }
@@ -164,31 +169,16 @@ namespace TicTacToeViewModel
         public void NewGame_CommandExecute(object parameter)
         {
             game = new Game();
-            game.setCurrentScoreSituation();
             isContinue = true;
             lblContent = "Your Move!";
             optionsEnabled = false;
-            //setOptions();
             game.letterOfCurrentPlayerSide = "X";
             updateContentOfAllSquares();
         }
 
-        //private void setOptions()
-        //{
-        //    game.isOnePlayerGame = isOnePlayerGame;
-        //    if (!isUnbeatableDifficulty)
-        //    {
-        //        game.difficultyLevel = "easy";
-        //    }
-        //    else
-        //    {
-        //        game.difficultyLevel = "unbeatable";
-        //    }
-        //}
-
         private void checkIfContinue()
         {
-            if (game.currentScoreSituation != ScoreSituation.Continue)
+            if (TicTacToeBase.currentScoreSituation != ScoreSituation.Continue)
             {
                 isContinue = false;
                 optionsEnabled = true;

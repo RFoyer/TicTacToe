@@ -8,6 +8,11 @@ namespace TicTacToeModel
 {
     public class Game : GetAiMove
     {
+        public Game()
+        {
+            setCurrentScoreSituation();
+        }
+        
         public void squareSelectionAttempt()
         {
             if (IsValidPlay())
