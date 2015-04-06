@@ -13,7 +13,7 @@ namespace TicTacToeModel
             setCurrentScoreSituation();
             squaresPlayed = new List<string>() { "", "", "", "", "", "", "", "", "" };
         }
-        
+
         public void squareSelectionAttempt()
         {
             if (IsValidPlay())

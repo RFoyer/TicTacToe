@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TicTacToeModel
 {
-    public class CheckForFork : TicTacToeBase
+    public abstract class CheckForFork : TicTacToeBase
     {
         public string letterOfOpposingPlayerSide { get; set; }
         private List<int> _aiMoveCandidates = new List<int>();

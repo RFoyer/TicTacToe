@@ -11,12 +11,7 @@ namespace TicTacToeModel
     public abstract class TicTacToeBase
     {
         public int currentSquare { get; set; }
-        private int _turnNumber = 0;
-        public int turnNumber
-        {
-            get { return _turnNumber; }
-            set { _turnNumber = value; }
-        }
+        public int turnNumber { get; set; }
         public string letterOfCurrentPlayerSide { get; set; }
         public static string difficultyLevel { get; set; }
         public static bool isOnePlayerGame { get; set; }

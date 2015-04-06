@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace TicTacToeModel
 {
-    public class GetAiMove : CheckForFork
+    public abstract class GetAiMove : CheckForFork
     {
-
         private int[] _fourCorners = { 0, 2, 6, 8 };
         private List<Action> _mediumDifficultyAi = new List<Action>();
         private List<Action> _unbeatableDifficultyAi = new List<Action>();
@@ -26,7 +25,7 @@ namespace TicTacToeModel
             _unbeatableDifficultyAi.Add(() => checkForCenter());
             _unbeatableDifficultyAi.Add(() => checkForCorner());
             _unbeatableDifficultyAi.Add(() => getRandomMove());
-            
+
         }
 
         public void getAiMove()

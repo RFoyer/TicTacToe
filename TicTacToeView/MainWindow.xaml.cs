@@ -24,7 +24,7 @@ namespace TicTacToeView
         public MainWindow()
         {
             InitializeComponent();
-            this.DataContext = new TTTViewModel();
+            this.DataContext = new CommandLogic();
         }
 
         
