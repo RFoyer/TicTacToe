@@ -21,18 +21,19 @@ namespace TicTacToeViewModel
             }
         }
 
-        private ICommand _NewGameCommand;
-        public ICommand NewGameCommand
+        public void BtnClick_CommandExecute(object parameter)
         {
-            get
+            if (parameter.ToString() == "New Game")
             {
-                if (_NewGameCommand == null)
-                    _NewGameCommand = new RelayCommand(param => NewGame_CommandExecute(param));
-                return _NewGameCommand;
+                NewGameCommand();
+            }
+            else
+            {
+                PlaySquareCommand(parameter);
             }
         }
 
-        public void BtnClick_CommandExecute(object parameter)
+        private void PlaySquareCommand(object parameter)
         {
             game.currentSquare = Convert.ToInt32(parameter);
             game.squareSelectionAttempt();
@@ -41,7 +42,7 @@ namespace TicTacToeViewModel
             checkIfContinue();
         }
 
-        public void NewGame_CommandExecute(object parameter)
+        private void NewGameCommand()
         {
             game = new Game();
             isContinue = true;
