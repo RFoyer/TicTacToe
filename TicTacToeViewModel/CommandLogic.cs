@@ -46,21 +46,38 @@ namespace TicTacToeViewModel
         {
             game = new Game();
             isContinue = true;
-            lblContent = "Your Move!";
             optionsEnabled = false;
             game.letterOfCurrentPlayerSide = "X";
+            updateLblContent();
             updateContentOfAllSquares();
         }
 
         private void updateLblContent()
         {
+            if (game.currentScoreSituation == ScoreSituation.Continue && !isOnePlayerGame)
+            {
+                if (game.letterOfCurrentPlayerSide == "X")
+                {
+                    lblContent = "X's Turn!";
+                    return;
+                }
+                lblContent = "O's Turn!";
+                return;
+            }
+            else if (game.currentScoreSituation == ScoreSituation.Continue && isOnePlayerGame)
+            {
+                lblContent = "Your Turn!";
+                return;
+            }
             if (game.currentScoreSituation == ScoreSituation.Win)
             {
                 lblContent = string.Format("{0} Wins!", game.letterOfCurrentPlayerSide);
+                return;
             }
             if (game.currentScoreSituation == ScoreSituation.Draw)
             {
                 lblContent = "Cat!";
+                return;
             }
         }
 
