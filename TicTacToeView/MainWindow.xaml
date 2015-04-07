@@ -20,6 +20,10 @@
         <Button Content="New Game" Command="{Binding BtnClickCommand}" CommandParameter="New Game" Grid.Column="1" HorizontalAlignment="Left" Margin="89,50,0,0" VerticalAlignment="Top" Width="75"/>
         <Label Content="{Binding lblContent, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" HorizontalAlignment="Left" Margin="89,138,0,0" VerticalAlignment="Top" Width="75" Height="23"/>
         <Menu HorizontalAlignment="Left" Height="24" VerticalAlignment="Top" Width="517" Grid.ColumnSpan="2">
+            <MenuItem Header="Game">
+                <MenuItem Header="Options" Command="{Binding GameOptionsWindowCommand}">
+                </MenuItem>
+            </MenuItem>
             <CheckBox Content="Play Computer" IsChecked="{Binding isOnePlayerGame, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding optionsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="114"/>
             <CheckBox Content="Unbeatable" IsChecked="{Binding isUnbeatableDifficulty, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding optionsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
         </Menu>

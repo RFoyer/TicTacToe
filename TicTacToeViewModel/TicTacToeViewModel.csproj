@@ -31,13 +31,16 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CommandLogic.cs" />
@@ -46,6 +49,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\GameOptionsWindow\GameOptionsWindow.csproj">
+      <Project>{e82e4201-933b-4676-af00-384b48320a63}</Project>
+      <Name>GameOptionsWindow</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TicTacToeModel\TicTacToeModel.csproj">
       <Project>{71ca2e1c-d6af-40c5-a486-a63c39c6c9a7}</Project>
       <Name>TicTacToeModel</Name>

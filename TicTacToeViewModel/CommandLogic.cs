@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using TicTacToeModel;
+using GameOptionsWindow;
 
 namespace TicTacToeViewModel
 {
@@ -19,6 +20,23 @@ namespace TicTacToeViewModel
                     _BtnClickCommand = new RelayCommand(param => BtnClick_CommandExecute(param));
                 return _BtnClickCommand;
             }
+        }
+
+        private ICommand _GameOptionsWindowCommand;
+        public ICommand GameOptionsWindowCommand
+        {
+            get
+            {
+                if (_GameOptionsWindowCommand == null)
+                    _GameOptionsWindowCommand = new RelayCommand(param => GameOptionsWindow_CommandExecute(param));
+                return _GameOptionsWindowCommand;
+            }
+        }
+
+        private void GameOptionsWindow_CommandExecute(object param)
+        {
+            GameOptionsMainWindow gomw = new GameOptionsMainWindow();
+            gomw.ShowDialog();
         }
 
         public void BtnClick_CommandExecute(object parameter)
