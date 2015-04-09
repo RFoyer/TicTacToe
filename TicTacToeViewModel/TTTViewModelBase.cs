@@ -12,7 +12,7 @@ namespace TicTacToeViewModel
     {
         public TTTViewModelBase()
         {
-            TicTacToeBase.difficultyLevel = "easy";
+            TicTacToeBase.DifficultyLevel = "easy";
             game = new Game();
         }
         
@@ -20,56 +20,56 @@ namespace TicTacToeViewModel
 
         public string btn0
         {
-            get { return game.squaresPlayed[0]; }
-            set { game.squaresPlayed[0] = value; }
+            get { return game.SquaresPlayed[0]; }
+            set { game.SquaresPlayed[0] = value; }
         }
 
         public string btn1
         {
-            get { return game.squaresPlayed[1]; }
-            set { game.squaresPlayed[1] = value; }
+            get { return game.SquaresPlayed[1]; }
+            set { game.SquaresPlayed[1] = value; }
         }
 
         public string btn2
         {
-            get { return game.squaresPlayed[2]; }
-            set { game.squaresPlayed[2] = value; }
+            get { return game.SquaresPlayed[2]; }
+            set { game.SquaresPlayed[2] = value; }
         }
 
         public string btn3
         {
-            get { return game.squaresPlayed[3]; }
-            set { game.squaresPlayed[3] = value; }
+            get { return game.SquaresPlayed[3]; }
+            set { game.SquaresPlayed[3] = value; }
         }
 
         public string btn4
         {
-            get { return game.squaresPlayed[4]; }
-            set { game.squaresPlayed[4] = value; }
+            get { return game.SquaresPlayed[4]; }
+            set { game.SquaresPlayed[4] = value; }
         }
 
         public string btn5
         {
-            get { return game.squaresPlayed[5]; }
-            set { game.squaresPlayed[5] = value; }
+            get { return game.SquaresPlayed[5]; }
+            set { game.SquaresPlayed[5] = value; }
         }
 
         public string btn6
         {
-            get { return game.squaresPlayed[6]; }
-            set { game.squaresPlayed[6] = value; }
+            get { return game.SquaresPlayed[6]; }
+            set { game.SquaresPlayed[6] = value; }
         }
 
         public string btn7
         {
-            get { return game.squaresPlayed[7]; }
-            set { game.squaresPlayed[7] = value; }
+            get { return game.SquaresPlayed[7]; }
+            set { game.SquaresPlayed[7] = value; }
         }
 
         public string btn8
         {
-            get { return game.squaresPlayed[8]; }
-            set { game.squaresPlayed[8] = value; }
+            get { return game.SquaresPlayed[8]; }
+            set { game.SquaresPlayed[8] = value; }
         }
 
         private string _lblContent;
@@ -107,19 +107,19 @@ namespace TicTacToeViewModel
 
         public bool isOnePlayerGame
         {
-            get { return TicTacToeBase.isOnePlayerGame; }
-            set { TicTacToeBase.isOnePlayerGame = value; }
+            get { return TicTacToeBase.IsOnePlayerGame; }
+            set { TicTacToeBase.IsOnePlayerGame = value; }
         }
 
         public bool isUnbeatableDifficulty
         {
-            get { return TicTacToeBase.difficultyLevel == "unbeatable"; }
+            get { return TicTacToeBase.DifficultyLevel == "unbeatable"; }
             set
             {
                 if (value)
-                    TicTacToeBase.difficultyLevel = "unbeatable";
+                    TicTacToeBase.DifficultyLevel = "unbeatable";
                 else
-                    TicTacToeBase.difficultyLevel = "easy";
+                    TicTacToeBase.DifficultyLevel = "easy";
             }
         }
 

@@ -6,14 +6,30 @@ using System.Threading.Tasks;
 
 namespace TicTacToeModel
 {
-    public class Game : GetAiMove
+    public class Game
     {
         public Game()
         {
-            setCurrentScoreSituation();
-            squaresPlayed = new List<string>() { "", "", "", "", "", "", "", "", "" };
+            Score = new ScoreSituationSetter(this);
+            Fork = new CheckForFork(this);
+            Ai = new GetAiMove(this);
+            CurrentScoreSituation = ScoreSituation.Continue;
+            SquaresPlayed = new List<string>() { "", "", "", "", "", "", "", "", "" };
         }
 
+        public int CurrentSquare { get; set; }
+        public int TurnNumber { get; set; }
+        public string LetterOfCurrentPlayerSide { get; set; }
+        public string LetterOfOpposingPlayerSide { get; set; }
+        public string DifficultyLevel { get; set; }
+        public bool IsOnePlayerGame { get; set; }
+        public string FirstPlayer { get; set; }
+        public ScoreSituation CurrentScoreSituation { get; set; }
+        public List<string> SquaresPlayed { get; set; }
+        public ScoreSituationSetter Score { get; set; }
+        public CheckForFork Fork { get; set; }
+        public GetAiMove Ai { get; set; }
+        
         public void squareSelectionAttempt()
         {
             if (IsValidPlay())
@@ -28,29 +44,43 @@ namespace TicTacToeModel
 
         public void playAiMove()
         {
-            getAiMove();
+            Ai.getAiMove();
             playSquare();
         }
 
         private bool IsValidPlay()
         {
-            return squaresPlayed[currentSquare] == "" && currentScoreSituation == ScoreSituation.Continue;
+            return SquaresPlayed[CurrentSquare] == "" && CurrentScoreSituation == ScoreSituation.Continue;
         }
 
         private bool NeedAimove()
         {
-            return isOnePlayerGame && currentScoreSituation == ScoreSituation.Continue;
+            return IsOnePlayerGame && CurrentScoreSituation == ScoreSituation.Continue;
         }
 
         public void playSquare()
         {
-            squaresPlayed[currentSquare] = letterOfCurrentPlayerSide;
-            setCurrentScoreSituation();
-            if (currentScoreSituation == ScoreSituation.Continue)
+            SquaresPlayed[CurrentSquare] = LetterOfCurrentPlayerSide;
+            CurrentScoreSituation = Score.SetCurrentScoreSituation();
+            if (CurrentScoreSituation == ScoreSituation.Continue)
             {
-                letterOfCurrentPlayerSide = switchPlayerSide(letterOfCurrentPlayerSide);
-                turnNumber++;
+                LetterOfCurrentPlayerSide = switchPlayerSide(LetterOfCurrentPlayerSide);
+                TurnNumber++;
             }
+        }
+        
+        public string switchPlayerSide(string playerSide)
+        {
+            var nextPlayerSide = "";
+            if (playerSide == "X")
+            {
+                nextPlayerSide = "O";
+            }
+            else
+            {
+                nextPlayerSide = "X";
+            }
+            return nextPlayerSide;
         }
 
         public void getFirstPlayer()
@@ -58,11 +88,11 @@ namespace TicTacToeModel
             Random rnd = new Random();
             if (rnd.Next(0, 2) == 0)
             {
-                firstPlayer = "player 1";
+                FirstPlayer = "player 1";
             }
             else
             {
-                firstPlayer = "player 2";
+                FirstPlayer = "player 2";
             }
         }
     }

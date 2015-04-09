@@ -56,6 +56,8 @@
     <ApplicationDefinition Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
     </ApplicationDefinition>
+    <Compile Include="RelayCommand.cs" />
+    <Compile Include="ViewModel.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -97,9 +99,13 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\TicTacToeViewModel\TicTacToeViewModel.csproj">
-      <Project>{47563997-c2bc-4d56-aaa8-c9638babf77d}</Project>
-      <Name>TicTacToeViewModel</Name>
+    <ProjectReference Include="..\GameOptionsWindow\GameOptionsWindow.csproj">
+      <Project>{e82e4201-933b-4676-af00-384b48320a63}</Project>
+      <Name>GameOptionsWindow</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TicTacToeModel\TicTacToeModel.csproj">
+      <Project>{71ca2e1c-d6af-40c5-a486-a63c39c6c9a7}</Project>
+      <Name>TicTacToeModel</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

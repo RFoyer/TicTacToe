@@ -6,23 +6,13 @@ using System.Threading.Tasks;
 
 namespace TicTacToeModel
 {
-    public abstract class CheckForFork : TicTacToeBase
+    public class CheckForFork
     {
-        public string letterOfOpposingPlayerSide { get; set; }
-        private List<int> _aiMoveCandidates = new List<int>();
-        private int[] _fourCenterEdges = { 1, 3, 5, 7 };
-        public int[] fourCenterEdges
-        {
-            get { return _fourCenterEdges; }
-        }
-        public List<int> aiMoveCandidates
-        {
-            get { return _aiMoveCandidates; }
-            set { _aiMoveCandidates = value; }
-        }
-        private string _letterOfForkingSide;
+        private Game game;
+        private string letterOfForkingSide;
+        private int[] fourCenterEdges = { 1, 3, 5, 7 };
         private List<int[]> potentialForkSequences = new List<int[]>();
-        private List<int[][]> _forkSequencesForEachBoardIndex = new List<int[][]>()
+        private List<int[][]> forkSequencesForEachBoardIndex = new List<int[][]>()
         {
             new int[][] { new int[] { 0, 1, 2 }, new int[] { 0, 3, 6 }, new int[] { 0, 4, 8 } },
             new int[][] { new int[] { 1, 0, 2 }, new int[] { 1, 4, 7 } },
@@ -34,47 +24,52 @@ namespace TicTacToeModel
             new int[][] { new int[] { 7, 6, 8 }, new int[] { 7, 1, 4 } },
             new int[][] { new int[] { 8, 6, 7 }, new int[] { 8, 2, 5 }, new int[] { 8, 0, 4 } }
         };
-
-        public void checkForWinningFork()
+        
+        public CheckForFork(Game game)
         {
-            if (turnNumber >= 4)
+            this.game = game;
+        }
+
+        public void CheckForWinningFork()
+        {
+            if (game.TurnNumber >= 4)
             {
-                _letterOfForkingSide = letterOfCurrentPlayerSide;
-                foreach (var s in _forkSequencesForEachBoardIndex)
+                letterOfForkingSide = game.LetterOfCurrentPlayerSide;
+                foreach (var s in forkSequencesForEachBoardIndex)
                 {
-                    checkForkSequencesForEachBoardIndex(s);
+                    CheckForkSequencesForEachBoardIndex(s);
                 }
             }
         }
 
-        public void checkForForkBlock()
+        public void CheckForForkBlock()
         {
-            if (turnNumber >= 3)
+            if (game.TurnNumber >= 3)
             {
-                _letterOfForkingSide = letterOfOpposingPlayerSide;
-                foreach (var s in _forkSequencesForEachBoardIndex)
+                letterOfForkingSide = game.LetterOfOpposingPlayerSide;
+                foreach (var s in forkSequencesForEachBoardIndex)
                 {
-                    checkForkSequencesForEachBoardIndex(s);
+                    CheckForkSequencesForEachBoardIndex(s);
                 }
-                checkforDoubleForkSituation();
+                CheckforDoubleForkSituation();
             }
         }
 
-        private void checkForkSequencesForEachBoardIndex(int[][] forkSequencesAtCurrentIndex)
+        private void CheckForkSequencesForEachBoardIndex(int[][] forkSequencesAtCurrentIndex)
         {
             potentialForkSequences = new List<int[]>();
 
             foreach (var t in forkSequencesAtCurrentIndex)
             {
-                if (squaresPlayed[t[0]] == "")
+                if (game.SquaresPlayed[t[0]] == "")
                 {
-                    checkSequenceForPotentialFork(t);
-                    checkPotentialForksForActualFork(t[0]);
+                    CheckSequenceForPotentialFork(t);
+                    CheckPotentialForksForActualFork(t[0]);
                 }
             }
         }
 
-        private void checkSequenceForPotentialFork(int[] sequenceToCheck)
+        private void CheckSequenceForPotentialFork(int[] sequenceToCheck)
         {
             if (IsPotentialForkSequence(sequenceToCheck))
             {
@@ -85,43 +80,43 @@ namespace TicTacToeModel
 
         private bool IsPotentialForkSequence(int[] sequenceToCheck)
         {
-            return squaresPlayed[sequenceToCheck[0]] + squaresPlayed[sequenceToCheck[1]] + squaresPlayed[sequenceToCheck[2]]
-                == _letterOfForkingSide;
+            return game.SquaresPlayed[sequenceToCheck[0]] + game.SquaresPlayed[sequenceToCheck[1]] + game.SquaresPlayed[sequenceToCheck[2]]
+                == letterOfForkingSide;
         }
 
-        private void checkPotentialForksForActualFork(int potentialForkIndex)
+        private void CheckPotentialForksForActualFork(int potentialForkIndex)
         {
             if (potentialForkSequences.Count == 2)
             {
-                addUniqueAiMoveCandidate(potentialForkIndex);
+                AddUniqueAiMoveCandidate(potentialForkIndex);
             }
         }
 
-        private void checkforDoubleForkSituation()
+        private void CheckforDoubleForkSituation()
         {
-            if (_aiMoveCandidates.Count == 2)
+            if (game.Ai.AiMoveCandidates.Count == 2)
             {
-                _aiMoveCandidates = new List<int>();
-                checkForEdge();
+                game.Ai.AiMoveCandidates = new List<int>();
+                CheckForEdge();
             }
         }
 
-        public void checkForEdge()
+        public void CheckForEdge()
         {
             foreach (var e in fourCenterEdges)
             {
-                if (squaresPlayed[e] == "")
+                if (game.SquaresPlayed[e] == "")
                 {
-                    aiMoveCandidates.Add(e);
+                    game.Ai.AiMoveCandidates.Add(e);
                 }
             }
         }
 
-        public void addUniqueAiMoveCandidate(int potentialAiMoveCandidate)
+        public void AddUniqueAiMoveCandidate(int potentialAiMoveCandidate)
         {
-            if (aiMoveCandidates.Contains(potentialAiMoveCandidate) == false)
+            if (game.Ai.AiMoveCandidates.Contains(potentialAiMoveCandidate) == false)
             {
-                aiMoveCandidates.Add(potentialAiMoveCandidate);
+                game.Ai.AiMoveCandidates.Add(potentialAiMoveCandidate);
             }
         }
     }

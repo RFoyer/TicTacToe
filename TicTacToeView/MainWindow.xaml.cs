@@ -12,7 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using TicTacToeViewModel;
+using TicTacToeModel;
 
 namespace TicTacToeView
 {
@@ -24,7 +24,8 @@ namespace TicTacToeView
         public MainWindow()
         {
             InitializeComponent();
-            this.DataContext = new CommandLogic();
+            Game game = new Game();
+            this.DataContext = new ViewModel(game);
         }
 
         

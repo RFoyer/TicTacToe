@@ -6,56 +6,61 @@ using System.Threading.Tasks;
 
 namespace TicTacToeModel
 {
-    public abstract class GetAiMove : CheckForFork
+    public class GetAiMove
     {
-        private int[] _fourCorners = { 0, 2, 6, 8 };
-        private List<Action> _mediumDifficultyAi = new List<Action>();
-        private List<Action> _unbeatableDifficultyAi = new List<Action>();
-
-        public GetAiMove()
+        private List<Action> mediumDifficultyAi;
+        private List<Action> unbeatableDifficultyAi;
+        private Game game;
+        private int[] fourCorners = { 0, 2, 6, 8 };
+        
+        public GetAiMove(Game game)
         {
-            _mediumDifficultyAi.Add(() => checkForWin());
-            _mediumDifficultyAi.Add(() => checkForBlock());
-            _mediumDifficultyAi.Add(() => checkForCenter());
-            _mediumDifficultyAi.Add(() => getRandomMove());
-            _unbeatableDifficultyAi.Add(() => checkForWin());
-            _unbeatableDifficultyAi.Add(() => checkForBlock());
-            _unbeatableDifficultyAi.Add(() => checkForWinningFork());
-            _unbeatableDifficultyAi.Add(() => checkForForkBlock());
-            _unbeatableDifficultyAi.Add(() => checkForCenter());
-            _unbeatableDifficultyAi.Add(() => checkForCorner());
-            _unbeatableDifficultyAi.Add(() => getRandomMove());
-
+            this.game = game;
+            mediumDifficultyAi = new List<Action>();
+            unbeatableDifficultyAi = new List<Action>();
+            mediumDifficultyAi.Add(() => checkForWin());
+            mediumDifficultyAi.Add(() => checkForBlock());
+            mediumDifficultyAi.Add(() => checkForCenter());
+            mediumDifficultyAi.Add(() => getRandomMove());
+            unbeatableDifficultyAi.Add(() => checkForWin());
+            unbeatableDifficultyAi.Add(() => checkForBlock());
+            unbeatableDifficultyAi.Add(() => game.Fork.CheckForWinningFork());
+            unbeatableDifficultyAi.Add(() => game.Fork.CheckForForkBlock());
+            unbeatableDifficultyAi.Add(() => checkForCenter());
+            unbeatableDifficultyAi.Add(() => checkForCorner());
+            unbeatableDifficultyAi.Add(() => getRandomMove());
         }
 
+        public List<int> AiMoveCandidates { get; set; }
+        
         public void getAiMove()
         {
-            switch (difficultyLevel)
+            switch (game.DifficultyLevel)
             {
                 case "easy":
                     getRandomMove();
                     break;
                 case "medium":
-                    playAiMove(_mediumDifficultyAi);
+                    playAiMove(mediumDifficultyAi);
                     break;
                 case "unbeatable":
-                    playAiMove(_unbeatableDifficultyAi);
+                    playAiMove(unbeatableDifficultyAi);
                     break;
                 default:
-                    playAiMove(_unbeatableDifficultyAi);
+                    playAiMove(unbeatableDifficultyAi);
                     break;
             }
         }
 
         private void playAiMove(List<Action> currentDifficultyLevelAlgorithm)
         {
-            letterOfOpposingPlayerSide = switchPlayerSide(letterOfCurrentPlayerSide);
+            game.LetterOfOpposingPlayerSide = game.switchPlayerSide(game.LetterOfCurrentPlayerSide);
 
             foreach (var a in currentDifficultyLevelAlgorithm)
             {
-                aiMoveCandidates = new List<int>();
+                AiMoveCandidates = new List<int>();
                 a.Invoke();
-                if (aiMoveCandidates.Count > 0)
+                if (AiMoveCandidates.Count > 0)
                 {
                     chooseMoveCandidate();
                     return;
@@ -65,15 +70,15 @@ namespace TicTacToeModel
 
         private void checkForWin()
         {
-            foreach (var w in winningIndexSequences)
+            foreach (var w in game.Score.WinningIndexSequences)
             {
-                if (squaresPlayed[w[0]] + squaresPlayed[w[1]] + squaresPlayed[w[2]] == letterOfCurrentPlayerSide + letterOfCurrentPlayerSide)
+                if (game.SquaresPlayed[w[0]] + game.SquaresPlayed[w[1]] + game.SquaresPlayed[w[2]] == game.LetterOfCurrentPlayerSide + game.LetterOfCurrentPlayerSide)
                 {
                     foreach (var s in w)
                     {
-                        if (squaresPlayed[s] == "")
+                        if (game.SquaresPlayed[s] == "")
                         {
-                            aiMoveCandidates.Add(s);
+                            AiMoveCandidates.Add(s);
                         }
                     }
                 }
@@ -83,16 +88,16 @@ namespace TicTacToeModel
 
         private void checkForBlock()
         {
-            foreach (var w in winningIndexSequences)
+            foreach (var w in game.Score.WinningIndexSequences)
             {
-                if (squaresPlayed[w[0]] + squaresPlayed[w[1]] + squaresPlayed[w[2]]
-                    == letterOfOpposingPlayerSide + letterOfOpposingPlayerSide)
+                if (game.SquaresPlayed[w[0]] + game.SquaresPlayed[w[1]] + game.SquaresPlayed[w[2]]
+                    == game.LetterOfOpposingPlayerSide + game.LetterOfOpposingPlayerSide)
                 {
                     foreach (var s in w)
                     {
-                        if (squaresPlayed[s] == "")
+                        if (game.SquaresPlayed[s] == "")
                         {
-                            aiMoveCandidates.Add(s);
+                            AiMoveCandidates.Add(s);
                         }
                     }
                 }
@@ -101,19 +106,19 @@ namespace TicTacToeModel
 
         private void checkForCenter()
         {
-            if (squaresPlayed[4] == "")
+            if (game.SquaresPlayed[4] == "")
             {
-                aiMoveCandidates.Add(4);
+                AiMoveCandidates.Add(4);
             }
         }
 
         private void checkForCorner()
         {
-            foreach (var c in _fourCorners)
+            foreach (var c in fourCorners)
             {
-                if (squaresPlayed[c] == "")
+                if (game.SquaresPlayed[c] == "")
                 {
-                    aiMoveCandidates.Add(c);
+                    AiMoveCandidates.Add(c);
                 }
             }
         }
@@ -127,13 +132,13 @@ namespace TicTacToeModel
 
         private void chooseMoveCandidate()
         {
-            if (aiMoveCandidates.Count == 1)
+            if (AiMoveCandidates.Count == 1)
             {
-                currentSquare = aiMoveCandidates[0];
+                game.CurrentSquare = AiMoveCandidates[0];
             }
-            if (aiMoveCandidates.Count > 1)
+            if (AiMoveCandidates.Count > 1)
             {
-                currentSquare = aiMoveCandidates[getRandomIndex(aiMoveCandidates.Count)];
+                game.CurrentSquare = AiMoveCandidates[getRandomIndex(AiMoveCandidates.Count)];
             }
         }
 
@@ -141,22 +146,8 @@ namespace TicTacToeModel
         {
             do
             {
-                currentSquare = getRandomIndex(9);
-            } while (squaresPlayed[currentSquare] != "");
-        }
-
-        public string switchPlayerSide(string playerSide)
-        {
-            var nextPlayerSide = "";
-            if (playerSide == "X")
-            {
-                nextPlayerSide = "O";
-            }
-            else
-            {
-                nextPlayerSide = "X";
-            }
-            return nextPlayerSide;
+                game.CurrentSquare = getRandomIndex(9);
+            } while (game.SquaresPlayed[game.CurrentSquare] != "");
         }
     }
 }

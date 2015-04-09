@@ -53,7 +53,7 @@ namespace TicTacToeViewModel
 
         private void PlaySquareCommand(object parameter)
         {
-            game.currentSquare = Convert.ToInt32(parameter);
+            game.CurrentSquare = Convert.ToInt32(parameter);
             game.squareSelectionAttempt();
             updateLblContent();
             updateContentOfAllSquares();
@@ -65,16 +65,16 @@ namespace TicTacToeViewModel
             game = new Game();
             isContinue = true;
             optionsEnabled = false;
-            game.letterOfCurrentPlayerSide = "X";
+            game.LetterOfCurrentPlayerSide = "X";
             updateLblContent();
             updateContentOfAllSquares();
         }
 
         private void updateLblContent()
         {
-            if (game.currentScoreSituation == ScoreSituation.Continue && !isOnePlayerGame)
+            if (game.CurrentScoreSituation == ScoreSituation.Continue && !isOnePlayerGame)
             {
-                if (game.letterOfCurrentPlayerSide == "X")
+                if (game.LetterOfCurrentPlayerSide == "X")
                 {
                     lblContent = "X's Turn!";
                     return;
@@ -82,17 +82,17 @@ namespace TicTacToeViewModel
                 lblContent = "O's Turn!";
                 return;
             }
-            else if (game.currentScoreSituation == ScoreSituation.Continue && isOnePlayerGame)
+            else if (game.CurrentScoreSituation == ScoreSituation.Continue && isOnePlayerGame)
             {
                 lblContent = "Your Turn!";
                 return;
             }
-            if (game.currentScoreSituation == ScoreSituation.Win)
+            if (game.CurrentScoreSituation == ScoreSituation.Win)
             {
-                lblContent = string.Format("{0} Wins!", game.letterOfCurrentPlayerSide);
+                lblContent = string.Format("{0} Wins!", game.LetterOfCurrentPlayerSide);
                 return;
             }
-            if (game.currentScoreSituation == ScoreSituation.Draw)
+            if (game.CurrentScoreSituation == ScoreSituation.Draw)
             {
                 lblContent = "Cat!";
                 return;
@@ -101,7 +101,7 @@ namespace TicTacToeViewModel
 
         private void checkIfContinue()
         {
-            if (game.currentScoreSituation != ScoreSituation.Continue)
+            if (game.CurrentScoreSituation != ScoreSituation.Continue)
             {
                 isContinue = false;
                 optionsEnabled = true;
