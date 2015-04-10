@@ -13,14 +13,15 @@ namespace TicTacToeView
     public class ViewModel : INotifyPropertyChanged
     {
         private Game game;
+        private GameOptionsMainWindow OptionsWindow;
         private string lblContent;
         private bool isContinue;
         private bool optionsEnabled = true;
-        
+
         public ViewModel(Game game)
         {
             this.game = game;
-            game.DifficultyLevel = "easy";
+            OptionsWindow = new GameOptionsMainWindow(game);
         }
 
         public string Btn0
@@ -95,62 +96,40 @@ namespace TicTacToeView
                 OnPropertyChanged("OptionsEnabled");
             }
         }
-        public bool IsOnePlayerGame
-        {
-            get { return game.IsOnePlayerGame; }
-            set { game.IsOnePlayerGame = value; }
-        }
-        public bool IsUnbeatableDifficulty
-        {
-            get { return game.DifficultyLevel == "unbeatable"; }
-            set
-            {
-                if (value)
-                    game.DifficultyLevel = "unbeatable";
-                else
-                    game.DifficultyLevel = "easy";
-            }
-        }
-        private ICommand _BtnClickCommand;
-        public ICommand BtnClickCommand
+        public bool IsStartingPlayerRandom { get; set; }
+        private ICommand _ClickCommand;
+        public ICommand ClickCommand
         {
             get
             {
-                if (_BtnClickCommand == null)
-                    _BtnClickCommand = new RelayCommand(param => BtnClick_CommandExecute(param));
-                return _BtnClickCommand;
-            }
-        }
-        private ICommand _GameOptionsWindowCommand;
-        public ICommand GameOptionsWindowCommand
-        {
-            get
-            {
-                if (_GameOptionsWindowCommand == null)
-                    _GameOptionsWindowCommand = new RelayCommand(param => GameOptionsWindow_CommandExecute(param));
-                return _GameOptionsWindowCommand;
+                if (_ClickCommand == null)
+                    _ClickCommand = new RelayCommand(param => Click_CommandExecute(param));
+                return _ClickCommand;
             }
         }
 
-        private void GameOptionsWindow_CommandExecute(object param)
+        private void GameOptionsWindow_CommandExecute()
         {
-            GameOptionsMainWindow gomw = new GameOptionsMainWindow();
-            gomw.ShowDialog();
+            OptionsWindow.ShowDialog(); // need to override OnClosing method
         }
 
-        public void BtnClick_CommandExecute(object parameter)
+        public void Click_CommandExecute(object parameter)
         {
             if (parameter.ToString() == "New Game")
             {
-                NewGameCommand();
+                NewGame_CommandExecute();
+            }
+            else if (parameter.ToString() == "Options")
+            {
+                GameOptionsWindow_CommandExecute();
             }
             else
             {
-                PlaySquareCommand(parameter);
+                ClickSquare_CommandExecute(parameter);
             }
         }
 
-        private void PlaySquareCommand(object parameter)
+        private void ClickSquare_CommandExecute(object parameter)
         {
             game.CurrentSquare = Convert.ToInt32(parameter);
             game.squareSelectionAttempt();
@@ -159,7 +138,7 @@ namespace TicTacToeView
             CheckIfContinue();
         }
 
-        private void NewGameCommand()
+        private void NewGame_CommandExecute()
         {
             ResetGameProperties();
             IsContinue = true;
@@ -178,7 +157,7 @@ namespace TicTacToeView
 
         private void UpdateLblContent()
         {
-            if (game.CurrentScoreSituation == ScoreSituation.Continue && !IsOnePlayerGame)
+            if (game.CurrentScoreSituation == ScoreSituation.Continue && !game.IsOnePlayerGame)
             {
                 if (game.LetterOfCurrentPlayerSide == "X")
                 {
@@ -188,7 +167,7 @@ namespace TicTacToeView
                 LblContent = "O's Turn!";
                 return;
             }
-            else if (game.CurrentScoreSituation == ScoreSituation.Continue && IsOnePlayerGame)
+            else if (game.CurrentScoreSituation == ScoreSituation.Continue && game.IsOnePlayerGame)
             {
                 LblContent = "Your Turn!";
                 return;

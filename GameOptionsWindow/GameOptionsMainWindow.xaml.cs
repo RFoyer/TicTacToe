@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TicTacToeModel;
 
 namespace GameOptionsWindow
 {
@@ -23,7 +25,21 @@ namespace GameOptionsWindow
         public GameOptionsMainWindow()
         {
             InitializeComponent();
-            this.DataContext = new GameOptionsLogic();
+        }
+
+        public GameOptionsMainWindow(Game game)
+            : this()
+        {
+            OptionsViewModel = new GameOptionsViewModel(game);
+            this.DataContext = OptionsViewModel;
+        }
+
+        public GameOptionsViewModel OptionsViewModel { get; set; }
+        
+        public void OptionsWindow_Closing(object sender, CancelEventArgs e)
+        {
+            e.Cancel = true;
+            this.Hide();
         }
     }
 }
