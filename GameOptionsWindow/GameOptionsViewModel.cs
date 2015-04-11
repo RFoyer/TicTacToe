@@ -13,19 +13,23 @@ namespace GameOptionsWindow
     {
         private Game game;
         private string lblOpacity;
-        private string actualDifficultyLevel;
         private bool isPlayComputer;
         private bool isEasyDifficulty;
         private bool isMediumDifficulty;
         private bool isUnbeatableDifficulty;
         private string difficultyLevel;
-
+        private bool isChooseStartingPlayer;
+        private bool isComputerPlaysFirst;
+        
         public GameOptionsViewModel(Game game)
         {
             this.game = game;
             IsPlayComputer = true;
             IsEasyDifficulty = true;
+            IsHumanPlaysFirst = true;
             game.IsOnePlayerGame = true;
+            game.IsStartingPlayerRandom = true;
+            game.IsComputerPlaysFirst = false;
             game.DifficultyLevel = "easy";
         }
 
@@ -36,8 +40,14 @@ namespace GameOptionsWindow
             {
                 isPlayComputer = value;
                 OnPropertyChanged("IsPlayComputer");
+                OnPropertyChanged("IsPlayComputerAndIsChooseStartingPlayer");
                 DimLbl();
             }
+        }
+        public bool IsPlayComputerAndIsChooseStartingPlayer
+        {
+            get { return IsPlayComputer && IsChooseStartingPlayer; }
+            set { }
         }
         public bool IsEasyDifficulty
         {
@@ -85,6 +95,34 @@ namespace GameOptionsWindow
             {
                 lblOpacity = value;
                 OnPropertyChanged("LblOpacity");
+            }
+        }
+        public bool IsChooseStartingPlayer
+        {
+            get { return isChooseStartingPlayer; }
+            set
+            {
+                isChooseStartingPlayer = value;
+                OnPropertyChanged("IsChooseStartingPlayer");
+                OnPropertyChanged("IsPlayComputerAndIsChooseStartingPlayer");
+            }
+        }
+        public bool IsComputerPlaysFirst
+        {
+            get { return isComputerPlaysFirst; }
+            set
+            {
+                isComputerPlaysFirst = value;
+                OnPropertyChanged("IsComputerPlaysFirst");
+            }
+        }
+        public bool IsHumanPlaysFirst
+        {
+            get { return !IsComputerPlaysFirst; }
+            set
+            {
+                IsComputerPlaysFirst = !value;
+                OnPropertyChanged("IsHumanPlaysFirst");
             }
         }
         private ICommand _ClickCommand;
@@ -137,15 +175,31 @@ namespace GameOptionsWindow
 
         public void SetGameProperties()
         {
-            actualDifficultyLevel = difficultyLevel;
             game.DifficultyLevel = difficultyLevel;
             game.IsOnePlayerGame = IsPlayComputer;
+            game.IsComputerPlaysFirst = IsComputerPlaysFirst;
+            game.IsStartingPlayerRandom = !IsChooseStartingPlayer;
         }
 
-        public void ResetOptionsPropertiesToGameProperties()
+        public void UndoOptionsChanges()
         {
             IsPlayComputer = game.IsOnePlayerGame;
-            actualDifficultyLevel = game.DifficultyLevel;
+            IsChooseStartingPlayer = !game.IsStartingPlayerRandom;
+            IsComputerPlaysFirst = game.IsComputerPlaysFirst;
+            IsHumanPlaysFirst = !game.IsComputerPlaysFirst;
+            difficultyLevel = game.DifficultyLevel;
+            if (game.DifficultyLevel == "easy")
+            {
+                IsEasyDifficulty = true;
+            }
+            if (game.DifficultyLevel == "medium")
+            {
+                IsMediumDifficulty = true;
+            }
+            if (game.DifficultyLevel == "unbeatable")
+            {
+                IsUnbeatableDifficulty = true;
+            }
         }
     }
 }

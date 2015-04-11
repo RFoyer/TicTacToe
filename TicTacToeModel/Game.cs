@@ -23,7 +23,8 @@ namespace TicTacToeModel
         public string LetterOfOpposingPlayerSide { get; set; }
         public string DifficultyLevel { get; set; }
         public bool IsOnePlayerGame { get; set; }
-        public string FirstPlayer { get; set; }
+        public bool IsComputerPlaysFirst { get; set; }
+        public bool IsStartingPlayerRandom { get; set; }
         public ScoreSituation CurrentScoreSituation { get; set; }
         public List<string> SquaresPlayed { get; set; }
         public ScoreSituationSetter Score { get; set; }
@@ -88,11 +89,11 @@ namespace TicTacToeModel
             Random rnd = new Random();
             if (rnd.Next(0, 2) == 0)
             {
-                FirstPlayer = "player 1";
+                IsComputerPlaysFirst = true;
             }
             else
             {
-                FirstPlayer = "player 2";
+                IsComputerPlaysFirst = false;
             }
         }
     }

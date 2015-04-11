@@ -18,7 +18,7 @@ using TicTacToeModel;
 namespace GameOptionsWindow
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for GameOptionsMainWindow.xaml
     /// </summary>
     public partial class GameOptionsMainWindow : Window
     {
@@ -38,7 +38,7 @@ namespace GameOptionsWindow
 
         public void OptionsWindow_Closing(object sender, CancelEventArgs e)
         {
-            OptionsViewModel.ResetOptionsPropertiesToGameProperties();
+            OptionsViewModel.UndoOptionsChanges();
             e.Cancel = true;
             this.Hide();
         }
@@ -51,13 +51,8 @@ namespace GameOptionsWindow
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
-            OptionsViewModel.ResetOptionsPropertiesToGameProperties();
+            OptionsViewModel.UndoOptionsChanges();
             this.Hide();
-        }
-
-        private void Button_PreviewKeyDown(object sender, KeyEventArgs e)
-        {
-            
         }
 
         private void Button_KeyDown(object sender, KeyEventArgs e)

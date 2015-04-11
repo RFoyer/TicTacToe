@@ -13,15 +13,15 @@ namespace TicTacToeView
     public class ViewModel : INotifyPropertyChanged
     {
         private Game game;
-        private GameOptionsMainWindow OptionsWindow;
+        private GameOptionsMainWindow GameOptions;
         private string lblContent;
         private bool isContinue;
-        private bool optionsEnabled = true;
+        //private bool isStartingPlayerRandom;
 
         public ViewModel(Game game)
         {
             this.game = game;
-            OptionsWindow = new GameOptionsMainWindow(game);
+            GameOptions = new GameOptionsMainWindow(game);
         }
 
         public string Btn0
@@ -87,16 +87,6 @@ namespace TicTacToeView
                 OnPropertyChanged("IsContinue");
             }
         }
-        public bool OptionsEnabled
-        {
-            get { return optionsEnabled; }
-            set
-            {
-                optionsEnabled = value;
-                OnPropertyChanged("OptionsEnabled");
-            }
-        }
-        public bool IsStartingPlayerRandom { get; set; }
         private ICommand _ClickCommand;
         public ICommand ClickCommand
         {
@@ -110,7 +100,7 @@ namespace TicTacToeView
 
         private void GameOptionsWindow_CommandExecute()
         {
-            OptionsWindow.ShowDialog();
+            GameOptions.ShowDialog();
         }
 
         public void Click_CommandExecute(object parameter)
@@ -142,9 +132,22 @@ namespace TicTacToeView
         {
             ResetGameProperties();
             IsContinue = true;
-            OptionsEnabled = false;
             UpdateLblContent();
             UpdateContentOfAllSquares();
+            PlayAiMoveIfNeeded();
+            UpdateContentOfAllSquares();
+        }
+
+        private void PlayAiMoveIfNeeded()
+        {
+            if (game.IsStartingPlayerRandom)
+            {
+                game.getFirstPlayer();
+            }
+            if (game.IsComputerPlaysFirst)
+            {
+                game.playAiMove();
+            }
         }
 
         private void ResetGameProperties()
@@ -189,7 +192,6 @@ namespace TicTacToeView
             if (game.CurrentScoreSituation != ScoreSituation.Continue)
             {
                 IsContinue = false;
-                OptionsEnabled = true;
             }
         }
 

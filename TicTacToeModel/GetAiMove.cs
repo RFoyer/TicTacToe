@@ -8,27 +8,29 @@ namespace TicTacToeModel
 {
     public class GetAiMove
     {
-        private List<Action> mediumDifficultyAi;
-        private List<Action> unbeatableDifficultyAi;
+        private List<Action> mediumDifficultyAi_ComputerPlaysFirst;
+        private List<Action> unbeatableDifficultyAi_ComputerPlaysFirst;
+        private List<Action> mediumDifficultyAi_ComputerPlaysSecond;
+        private List<Action> unbeatableDifficultyAi_ComputerPlaysSecond;
         private Game game;
         private int[] fourCorners = { 0, 2, 6, 8 };
         
         public GetAiMove(Game game)
         {
             this.game = game;
-            mediumDifficultyAi = new List<Action>();
-            unbeatableDifficultyAi = new List<Action>();
-            mediumDifficultyAi.Add(() => checkForWin());
-            mediumDifficultyAi.Add(() => checkForBlock());
-            mediumDifficultyAi.Add(() => checkForCenter());
-            mediumDifficultyAi.Add(() => getRandomMove());
-            unbeatableDifficultyAi.Add(() => checkForWin());
-            unbeatableDifficultyAi.Add(() => checkForBlock());
-            unbeatableDifficultyAi.Add(() => game.Fork.CheckForWinningFork());
-            unbeatableDifficultyAi.Add(() => game.Fork.CheckForForkBlock());
-            unbeatableDifficultyAi.Add(() => checkForCenter());
-            unbeatableDifficultyAi.Add(() => checkForCorner());
-            unbeatableDifficultyAi.Add(() => getRandomMove());
+            mediumDifficultyAi_ComputerPlaysSecond = new List<Action>();
+            unbeatableDifficultyAi_ComputerPlaysSecond = new List<Action>();
+            mediumDifficultyAi_ComputerPlaysSecond.Add(() => checkForWin());
+            mediumDifficultyAi_ComputerPlaysSecond.Add(() => checkForBlock());
+            mediumDifficultyAi_ComputerPlaysSecond.Add(() => checkForCenter());
+            mediumDifficultyAi_ComputerPlaysSecond.Add(() => getRandomMove());
+            unbeatableDifficultyAi_ComputerPlaysSecond.Add(() => checkForWin());
+            unbeatableDifficultyAi_ComputerPlaysSecond.Add(() => checkForBlock());
+            unbeatableDifficultyAi_ComputerPlaysSecond.Add(() => game.Fork.CheckForWinningFork());
+            unbeatableDifficultyAi_ComputerPlaysSecond.Add(() => game.Fork.CheckForForkBlock());
+            unbeatableDifficultyAi_ComputerPlaysSecond.Add(() => checkForCenter());
+            unbeatableDifficultyAi_ComputerPlaysSecond.Add(() => checkForCorner());
+            unbeatableDifficultyAi_ComputerPlaysSecond.Add(() => getRandomMove());
         }
 
         public List<int> AiMoveCandidates { get; set; }
@@ -41,13 +43,13 @@ namespace TicTacToeModel
                     getRandomMove();
                     break;
                 case "medium":
-                    playAiMove(mediumDifficultyAi);
+                    playAiMove(mediumDifficultyAi_ComputerPlaysSecond);
                     break;
                 case "unbeatable":
-                    playAiMove(unbeatableDifficultyAi);
+                    playAiMove(unbeatableDifficultyAi_ComputerPlaysSecond);
                     break;
                 default:
-                    playAiMove(unbeatableDifficultyAi);
+                    playAiMove(unbeatableDifficultyAi_ComputerPlaysSecond);
                     break;
             }
         }
