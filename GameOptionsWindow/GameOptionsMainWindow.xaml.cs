@@ -35,10 +35,23 @@ namespace GameOptionsWindow
         }
 
         public GameOptionsViewModel OptionsViewModel { get; set; }
-        
+
         public void OptionsWindow_Closing(object sender, CancelEventArgs e)
         {
+            OptionsViewModel.ResetOptionsPropertiesToGameProperties();
             e.Cancel = true;
+            this.Hide();
+        }
+
+        private void OKButton_Click(object sender, RoutedEventArgs e)
+        {
+            OptionsViewModel.SetGameProperties();
+            this.Hide();
+        }
+
+        private void CancelButton_Click(object sender, RoutedEventArgs e)
+        {
+            OptionsViewModel.ResetOptionsPropertiesToGameProperties();
             this.Hide();
         }
     }

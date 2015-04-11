@@ -3,8 +3,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Options" WindowStartupLocation="CenterScreen" Height="200" Width="450" Closing="OptionsWindow_Closing">
     <Grid Margin="0,0,2,-6">
-        <Button Content="OK" Command="{Binding ClickCommand}" CommandParameter="OK" HorizontalAlignment="Left" Margin="244,118,0,0" VerticalAlignment="Top" Width="75"/>
-        <Button Content="Cancel" Command="{Binding ClickCommand}" CommandParameter="Cancel" HorizontalAlignment="Left" Margin="333,118,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button Content="OK" Click="OKButton_Click" HorizontalAlignment="Left" Margin="244,118,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button Content="Cancel" Click="CancelButton_Click" Command="{Binding ClickCommand}" CommandParameter="Cancel" HorizontalAlignment="Left" Margin="333,118,0,0" VerticalAlignment="Top" Width="75" />
         <CheckBox Content="Play Computer" IsChecked="{Binding IsPlayComputer, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="28,22,0,0" VerticalAlignment="Top"/>
         <RadioButton Content="Starting Player Random" GroupName="PlayComputer" IsEnabled="False" IsChecked="{Binding IsStartingPlayerRandom, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="46,43,0,0" VerticalAlignment="Top"/>
         <RadioButton Content="Human Plays First" GroupName="PlayComputer" IsEnabled="False" HorizontalAlignment="Left" Margin="46,64,0,0" VerticalAlignment="Top"/>

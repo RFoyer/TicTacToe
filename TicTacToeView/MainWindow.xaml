@@ -24,8 +24,6 @@
                 <MenuItem Header="Options" Command="{Binding ClickCommand}" CommandParameter="Options">
                 </MenuItem>
             </MenuItem>
-            <!--<CheckBox Content="Play Computer" IsChecked="{Binding IsOnePlayerGame, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding OptionsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="114"/>-->
-            <!--<CheckBox Content="Unbeatable" IsChecked="{Binding IsUnbeatableDifficulty, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding OptionsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>-->
         </Menu>
     </Grid>
 </Window>

@@ -110,7 +110,7 @@ namespace TicTacToeView
 
         private void GameOptionsWindow_CommandExecute()
         {
-            OptionsWindow.ShowDialog(); // need to override OnClosing method
+            OptionsWindow.ShowDialog();
         }
 
         public void Click_CommandExecute(object parameter)

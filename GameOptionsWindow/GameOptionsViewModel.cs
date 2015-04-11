@@ -13,56 +13,69 @@ namespace GameOptionsWindow
     {
         private Game game;
         private string lLblOpacity;
+        private string actualDifficultyLevel;
 
         public GameOptionsViewModel(Game game)
         {
             this.game = game;
             IsPlayComputer = true;
             IsEasyDifficulty = true;
+            game.IsOnePlayerGame = true;
+            game.DifficultyLevel = "easy";
         }
+
+        private bool isPlayComputer;
+        private bool isEasyDifficulty;
+        private bool isMediumDifficulty;
+        private bool isUnbeatableDifficulty;
+        private string lblOpacity;
+        private string difficultyLevel;
 
         public bool IsPlayComputer
         {
-            get { return game.IsOnePlayerGame; }
+            get { return isPlayComputer; }
             set
             {
-                game.IsOnePlayerGame = value;
+                isPlayComputer = value;
                 OnPropertyChanged("IsPlayComputer");
                 DimLbl();
             }
         }
         public bool IsEasyDifficulty
         {
-            get { return game.DifficultyLevel == "easy"; }
+            get { return isEasyDifficulty; }
             set
             {
+                isEasyDifficulty = value;
                 if (value)
                 {
-                    game.DifficultyLevel = "easy";
+                    difficultyLevel = "easy";
                 }
                 OnPropertyChanged("IsEasyDifficulty");
             }
         }
         public bool IsMediumDifficulty
         {
-            get { return game.DifficultyLevel == "medium"; }
+            get { return isMediumDifficulty; }
             set
             {
+                isMediumDifficulty = value;
                 if (value)
                 {
-                    game.DifficultyLevel = "medium";
+                    difficultyLevel = "medium";
                 }
                 OnPropertyChanged("IsMediumDifficulty");
             }
         }
         public bool IsUnbeatableDifficulty
         {
-            get { return game.DifficultyLevel == "unbeatable"; }
+            get { return isUnbeatableDifficulty; }
             set
             {
+                isUnbeatableDifficulty = value;
                 if (value)
                 {
-                    game.DifficultyLevel = "unbeatable";
+                    difficultyLevel = "unbeatable";
                 }
                 OnPropertyChanged("IsUnbeatableDifficulty");
             }
@@ -101,6 +114,15 @@ namespace GameOptionsWindow
             {
                 IsUnbeatableDifficulty = true;
             }
+            if (parameter.ToString() == "Cancel")
+            {
+                CancelOptions();
+            }
+        }
+
+        private void CancelOptions()
+        {
+
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -122,6 +144,19 @@ namespace GameOptionsWindow
             {
                 LblOpacity = ".5";
             }
+        }
+
+        public void SetGameProperties()
+        {
+            actualDifficultyLevel = difficultyLevel;
+            game.DifficultyLevel = difficultyLevel;
+            game.IsOnePlayerGame = IsPlayComputer;
+        }
+
+        public void ResetOptionsPropertiesToGameProperties()
+        {
+            IsPlayComputer = game.IsOnePlayerGame;
+            actualDifficultyLevel = game.DifficultyLevel;
         }
     }
 }
