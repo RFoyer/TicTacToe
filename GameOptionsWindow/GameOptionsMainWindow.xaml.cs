@@ -54,5 +54,19 @@ namespace GameOptionsWindow
             OptionsViewModel.ResetOptionsPropertiesToGameProperties();
             this.Hide();
         }
+
+        private void Button_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            
+        }
+
+        private void Button_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Return)
+            {
+                OptionsViewModel.SetGameProperties();
+                this.Hide();
+            }
+        }
     }
 }

@@ -12,8 +12,13 @@ namespace GameOptionsWindow
     public class GameOptionsViewModel : INotifyPropertyChanged
     {
         private Game game;
-        private string lLblOpacity;
+        private string lblOpacity;
         private string actualDifficultyLevel;
+        private bool isPlayComputer;
+        private bool isEasyDifficulty;
+        private bool isMediumDifficulty;
+        private bool isUnbeatableDifficulty;
+        private string difficultyLevel;
 
         public GameOptionsViewModel(Game game)
         {
@@ -23,13 +28,6 @@ namespace GameOptionsWindow
             game.IsOnePlayerGame = true;
             game.DifficultyLevel = "easy";
         }
-
-        private bool isPlayComputer;
-        private bool isEasyDifficulty;
-        private bool isMediumDifficulty;
-        private bool isUnbeatableDifficulty;
-        private string lblOpacity;
-        private string difficultyLevel;
 
         public bool IsPlayComputer
         {
@@ -82,10 +80,10 @@ namespace GameOptionsWindow
         }
         public string LblOpacity
         {
-            get { return lLblOpacity; }
+            get { return lblOpacity; }
             set
             {
-                lLblOpacity = value;
+                lblOpacity = value;
                 OnPropertyChanged("LblOpacity");
             }
         }
@@ -114,15 +112,6 @@ namespace GameOptionsWindow
             {
                 IsUnbeatableDifficulty = true;
             }
-            if (parameter.ToString() == "Cancel")
-            {
-                CancelOptions();
-            }
-        }
-
-        private void CancelOptions()
-        {
-
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
